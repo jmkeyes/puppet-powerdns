@@ -1,6 +1,6 @@
 {
   "name": "jmkeyes-powerdns",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "jmkeyes",
   "summary": "Module for managing PowerDNS.",
   "license": "Apache-2.0",
