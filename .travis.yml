@@ -1,7 +1,7 @@
 ---
 language: ruby
 bundler_args: --without development
-script: bundle exec rake test
+script: bundle exec rake spec
 rvm:
   - 2.0.0
   - 2.1.0
