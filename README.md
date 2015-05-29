@@ -70,7 +70,7 @@ also need to include any selected backends as specified in the examples below.
       - 'powerdns::backend::gpgsql'
 
     powerdns::backends:
-      - 'postgresql'
+      - 'gpgsql'
 
     powerdns::backend::gpgsql::options:
       'gpgsql-host':     '127.0.0.1'
