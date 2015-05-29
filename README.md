@@ -32,9 +32,7 @@ This module is intended to work with Puppet 4.x.
 
 All configuration can be handled either through Hiera or by arguments to the `powerdns` class.
 
-The `backends` parameter indicates to PowerDNS which backends to load; it will configure the
-PowerDNS `launch` parameter in `pdns.conf`. In order to configure a given backend, you will
-also need to include any selected backends as specified in the examples below.
+All parameters specific to a backend can be supplied using the `options` parameter to the class.
 
 ## Supported PowerDNS Backends
 
@@ -47,9 +45,7 @@ also need to include any selected backends as specified in the examples below.
 ### PowerDNS with MySQL (using manifests)
 
     # Install PowerDNS:
-    class { '::powerdns':
-      backends => [ 'gmysql' ]
-    }
+    class { '::powerdns': }
 
     # Load the MySQL backend:
     class { '::powerdns::backend::gmysql':
@@ -68,9 +64,6 @@ also need to include any selected backends as specified in the examples below.
     classes:
       - 'powerdns'
       - 'powerdns::backend::gpgsql'
-
-    powerdns::backends:
-      - 'gpgsql'
 
     powerdns::backend::gpgsql::options:
       'gpgsql-host':     '127.0.0.1'
