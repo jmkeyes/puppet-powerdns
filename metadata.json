@@ -1,26 +1,36 @@
 {
-  "name": "jmkeyes-powerdns",
-  "version": "0.0.4",
-  "author": "jmkeyes",
-  "summary": "Module for managing PowerDNS.",
-  "license": "Apache-2.0",
-  "source": "https://github.com/jmkeyes/puppet-powerdns",
-  "project_page": "https://github.com/jmkeyes/puppet-powerdns",
-  "issues_url": "https://github.com/jmkeyes/puppet-powerdns/issues",
-  "requirements": [
+    "name": "jmkeyes-powerdns",
+    "version": "0.0.4",
+    "author": "jmkeyes",
+    "summary": "Module for managing PowerDNS.",
+    "license": "Apache-2.0",
+    "source": "https://github.com/jmkeyes/puppet-powerdns",
+    "project_page": "https://github.com/jmkeyes/puppet-powerdns",
+    "issues_url": "https://github.com/jmkeyes/puppet-powerdns/issues",
+    "requirements": [
     {
-      "name": "puppet",
-      "version_requirement": "4.x"
+        "name": "puppet",
+        "version_requirement": "4.x"
     }
-  ],
-  "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.6.0 < 5.0.0"
-    },
-    {
-      "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.2.2 < 2.0.0"
-    }
-  ]
+    ],
+        "operatingsystem_support": [
+        {
+            "operatingsystem":"RedHat",
+            "operatingsystemrelease": [ "6.0", "7.0" ]
+        },
+        {
+            "operatingsystem": "Debian",
+            "operatingsystemrelease": [ "7.0", "8.0" ]
+        }
+    ], 
+    "dependencies": [
+        {
+            "name": "puppetlabs/stdlib",
+            "version_requirement": ">= 4.6.0 < 5.0.0"
+        },
+        {
+            "name": "puppetlabs/concat",
+            "version_requirement": ">= 1.2.2 < 2.0.0"
+        }
+    ]
 }
