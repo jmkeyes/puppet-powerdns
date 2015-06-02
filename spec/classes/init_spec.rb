@@ -10,7 +10,7 @@ describe 'powerdns' do
       it { should raise_error(Puppet::Error, /This module requires the use of Puppet v3.7.0 or newer./) }
     end
 
-    context "on #{osfamily}" do
+    context "with default parameters on #{osfamily}" do
       let (:facts) do
         {
           :operatingsystem => osfamily,
