@@ -30,15 +30,13 @@ describe 'powerdns::config' do
         it { should contain_file(include_directory).with(default_params) }
 
         it do
-          should contain_concat(config_file)
-            .that_requires("File[#{config_directory}]")
-            .with({
-              'path'   => config_file,
-              'ensure' => 'present',
-              'owner'  => 'root',
-              'group'  => 'root',
-              'mode'   => '0600',
-            })
+          should contain_concat(config_file).with({
+            'path'   => config_file,
+            'ensure' => 'present',
+            'owner'  => 'root',
+            'group'  => 'root',
+            'mode'   => '0600',
+          })
         end
 
         it { should contain_powerdns__setting('daemon').with_value('yes') }

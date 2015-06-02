@@ -26,13 +26,6 @@ class powerdns::config {
   validate_absolute_path($config_path)
 
   file { $config_path:
-    ensure => directory,
-    owner  => $config_owner,
-    group  => $config_group,
-    mode   => '0755'
-  } ->
-
-  file { "${config_path}/pdns.d":
     ensure  => directory,
     owner   => $config_owner,
     group   => $config_group,
@@ -42,10 +35,16 @@ class powerdns::config {
     mode    => '0755'
   } ->
 
+  file { "${config_path}/pdns.d":
+    ensure  => directory,
+    owner   => $config_owner,
+    group   => $config_group,
+    mode    => '0755'
+  } ->
+
   concat { "${config_path}/pdns.conf":
     ensure  => present,
     path    => "${config_path}/pdns.conf",
-    require => File[$config_path],
     owner   => $config_owner,
     group   => $config_group,
     mode    => $config_mode,
