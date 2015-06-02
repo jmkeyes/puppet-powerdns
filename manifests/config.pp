@@ -97,9 +97,10 @@ class powerdns::config {
     }
   }
 
-  $::powerdns::settings.each |$key, $value| {
-    powerdns::setting { $key:
-      value => $value
-    }
+  if empty($::powerdns::settings) == false {
+    $settings = $::powerdns::settings
+    $convert  = "(@settings.inject({}){|o,(k,v)|;o[k]={'value'=>v};o})"
+    $options  = parsejson(inline_template("<%= ${convert}.to_json %>"))
+    create_resources('powerdns::setting', $options)
   }
 }

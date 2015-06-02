@@ -1,5 +1,15 @@
 describe 'powerdns' do
   shared_examples 'a Linux distribution' do |osfamily|
+    context 'with Puppet <= 3.7.0' do
+      let (:facts) do
+        {
+          :puppetversion => '3.6.0'
+        }
+      end
+
+      it { should raise_error(Puppet::Error, /This module requires the use of Puppet v3.7.0 or newer./) }
+    end
+
     context "on #{osfamily}" do
       let (:facts) do
         {
