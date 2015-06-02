@@ -22,7 +22,7 @@ describe 'powerdns::setting' do
       it do
         should contain_concat__fragment('cache-ttl')
           .with({
-            :content => "#{title}=20",
+            :content => "#{title}=20\n",
             :ensure  => 'present',
             :target  => config,
           })

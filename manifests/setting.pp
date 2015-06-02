@@ -7,6 +7,6 @@ define powerdns::setting (
   concat::fragment { $name:
     ensure  => $ensure,
     target  => "${::powerdns::config::config_path}/pdns.conf",
-    content => "${name}=${value}",
+    content => "${name}=${value}\n",
   }
 }
