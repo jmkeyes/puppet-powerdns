@@ -15,6 +15,8 @@ describe 'powerdns::backend' do
 
         it { should compile.with_all_deps }
 
+        it { should contain_powerdns__backend(backend) }
+
         it { should contain_class("powerdns::backend::#{backend}").that_requires('Class[powerdns::install]') }
         it { should contain_class("powerdns::backend::#{backend}").that_notifies('Class[powerdns::service]') }
       end

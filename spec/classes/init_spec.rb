@@ -19,6 +19,7 @@ describe 'powerdns' do
       end
 
       it { should compile.with_all_deps }
+      it { should create_class('powerdns') }
       it { should contain_class('powerdns::install').that_comes_before('Class[powerdns::config]') }
       it { should contain_class('powerdns::config').that_requires('Class[powerdns::install]') }
       it { should contain_class('powerdns::config').that_notifies('Class[powerdns::service]') }

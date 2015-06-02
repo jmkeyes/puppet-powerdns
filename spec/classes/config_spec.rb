@@ -40,38 +40,52 @@ describe 'powerdns::config' do
         end
 
         it { should contain_powerdns__setting('daemon').with_value('yes') }
+        it { should contain_concat__fragment('daemon').with_content("daemon=yes\n") }
+
         it { should contain_powerdns__setting('guardian').with_value('yes') }
+        it { should contain_concat__fragment('guardian').with_content("guardian=yes\n") }
 
         it { should contain_powerdns__setting('config-dir').with_value(config_directory) }
+        it { should contain_concat__fragment('config-dir').with_content("config-dir=#{config_directory}\n") }
+
         it { should contain_powerdns__setting('include-dir').with_value(include_directory) }
+        it { should contain_concat__fragment('include-dir').with_content("include-dir=#{include_directory}\n") }
 
         it { should contain_powerdns__setting('launch').with_value('') }
+        it { should contain_concat__fragment('launch').with_content("launch=\n") }
 
         [ 'master', 'slave' ].each do |mode|
           it { should_not contain_powerdns__setting(mode) }
+          it { should_not contain_concat__fragment(mode) }
         end
 
         it { should_not contain_powerdns__setting('setuid') }
-        it { should_not contain_powerdns__setting('setgid') }
-      end
+        it { should_not contain_concat__fragment('setuid') }
 
+        it { should_not contain_powerdns__setting('setgid') }
+        it { should_not contain_concat__fragment('setgid') }
+      end
 
       [ 'master', 'slave' ].each do |mode|
         describe "with #{mode} => true" do
           let (:pre_condition) { "class { '::powerdns': #{mode} => true }" }
           it { should contain_powerdns__setting(mode).with_value('yes') }
+          it { should contain_concat__fragment(mode).with_content("#{mode}=yes\n") }
         end
       end
 
       describe "with setuid => 'pdns' and setgid => 'pdns'" do
         let (:pre_condition) { "class { '::powerdns': setuid => 'pdns', setgid => 'pdns' }" }
         it { should contain_powerdns__setting('setuid').with_value('pdns') }
+        it { should contain_concat__fragment('setuid').with_content("setuid=pdns\n") }
         it { should contain_powerdns__setting('setgid').with_value('pdns') }
+        it { should contain_concat__fragment('setgid').with_content("setgid=pdns\n") }
       end
 
       describe "with settings => { 'cache-ttl' => 20 }" do
         let (:pre_condition) { "class { '::powerdns': settings => { 'cache-ttl' => 20 } }" }
         it { should contain_powerdns__setting('cache-ttl').with_value(20) }
+        it { should contain_concat__fragment('cache-ttl').with_content("cache-ttl=20\n") }
       end
     end
   end
