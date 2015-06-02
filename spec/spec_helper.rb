@@ -13,6 +13,8 @@ RSpec.configure do |c|
   }
 end
 
+at_exit { RSpec::Puppet::Coverage.report! }
+
 SUPPORTED_BACKENDS = [
   'lmdb',
   'gmysql',
