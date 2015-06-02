@@ -11,11 +11,6 @@ define powerdns::backend {
     fail("This module does not support the ${name} backend for PowerDNS!")
   }
 
-  # Ensure the backend has been configured in ::powerdns.
-  if ! $name in $::powerdns::backends {
-    fail("You must add ${name} to the list of configured backends!")
-  }
-
   # Ensure PowerDNS is installed before the backend is evaluated.
   Class['::powerdns::install'] -> Class[$backend]
 

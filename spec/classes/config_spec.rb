@@ -47,7 +47,7 @@ describe 'powerdns::config' do
         it { should contain_powerdns__setting('config-dir').with_value(config_directory) }
         it { should contain_powerdns__setting('include-dir').with_value(include_directory) }
 
-        it { should_not contain_powerdns__setting('launch') }
+        it { should contain_powerdns__setting('launch').with_value('') }
 
         [ 'master', 'slave' ].each do |mode|
           it { should_not contain_powerdns__setting(mode) }
@@ -57,15 +57,6 @@ describe 'powerdns::config' do
         it { should_not contain_powerdns__setting('setgid') }
       end
 
-      describe "with backends => [ 'one' ]" do
-        let (:pre_condition) { "class { '::powerdns': backends => [ 'one' ] }" }
-        it { should contain_powerdns__setting('launch').with_value('one') }
-      end
-
-      describe "with backends => [ 'one', 'two' ]" do
-        let (:pre_condition) { "class { '::powerdns': backends => [ 'one', 'two' ] }" }
-        it { should contain_powerdns__setting('launch').with_value('one,two') }
-      end
 
       [ 'master', 'slave' ].each do |mode|
         describe "with #{mode} => true" do

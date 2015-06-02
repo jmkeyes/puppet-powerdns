@@ -1,5 +1,6 @@
-# PowerDNS '<%= @name %>' Backend Configuration
-launch+=<%= @name %>
+<%- backend = @name.gsub(/^.*::(\w+)/, '\1') -%>
+# PowerDNS '<%= backend %>' Backend Configuration
+launch+=<%= backend %>
 
 <%- @options.each do |key, value| -%>
 <%= key -%>=<%= value %>

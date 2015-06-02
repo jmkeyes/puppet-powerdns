@@ -59,12 +59,8 @@ class powerdns::config {
     value => 'yes',
   }
 
-  if empty($::powerdns::backends) == false {
-    $backends = join($::powerdns::backends, ',')
-
-    powerdns::setting { 'launch':
-      value => $backends,
-    }
+  powerdns::setting { 'launch':
+    value => '',
   }
 
   powerdns::setting { 'config-dir':

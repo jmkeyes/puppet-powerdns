@@ -2,7 +2,6 @@
 
 class powerdns (
   $settings        = {},
-  $backends        = [],
   $master          = undef,
   $slave           = undef,
   $setuid          = undef,
@@ -24,7 +23,6 @@ class powerdns (
   }
 
   validate_hash($settings)
-  validate_array($backends)
 
   if $master and $slave {
     validate_bool($master)
