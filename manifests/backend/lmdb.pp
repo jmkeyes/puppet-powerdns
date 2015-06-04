@@ -1,13 +1,17 @@
 # == Class: powerdns::backend::lmdb
 
 class powerdns::backend::lmdb (
-  $options = {},
+  $datapath,
 ) {
   $backend_package_name = 'pdns-backend-lmdb'
 
   package { $backend_package_name:
     ensure => $::powerdns::install::package_ensure,
-  } ->
+  }
+
+  $options = {
+    'datapath' => $datapath
+  }
 
   file { "${::powerdns::config::config_path}/pdns.d/lmdb.conf":
     ensure  => present,

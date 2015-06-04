@@ -49,13 +49,11 @@ All parameters specific to a backend can be supplied using the `options` paramet
 
     # Load the MySQL backend:
     class { '::powerdns::backend::gmysql':
-      options => {
-        'gmysql-host'     => '127.0.0.1',
-        'gmysql-dbname'   => 'powerdns',
-        'gmysql-user'     => 'username',
-        'gmysql-password' => 'password',
-        'gmysql-port'     => '3306',
-      }
+      host     => '127.0.0.1',
+      user     => 'username',
+      password => 'password',
+      dbname   => 'powerdns',
+      port     => '3306',
     }
 
 ### PowerDNS with PostgreSQL (using Hiera)
@@ -65,12 +63,11 @@ All parameters specific to a backend can be supplied using the `options` paramet
       - 'powerdns'
       - 'powerdns::backend::gpgsql'
 
-    powerdns::backend::gpgsql::options:
-      'gpgsql-host':     '127.0.0.1'
-      'gpgsql-dbname':   'powerdns'
-      'gpgsql-user':     'username'
-      'gpgsql-password': 'password'
-      'gpgsql-port':     '3306'
+    powerdns::backend::gpgsql::host:     '127.0.0.1'
+    powerdns::backend::gpgsql::user:     'username'
+    powerdns::backend::gpgsql::password: 'password'
+    powerdns::backend::gpgsql::dbname:   'powerdns'
+    powerdns::backend::gpgsql::port:     5432
 
 ## Todo
 

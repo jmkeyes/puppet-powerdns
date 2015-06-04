@@ -1,7 +1,11 @@
 # == Class: powerdns::backend::gpgsql
 
 class powerdns::backend::gpgsql (
-  $options = {},
+  $host,
+  $user,
+  $password,
+  $dbname,
+  $port = 5432,
 ) {
   $backend_package_name = $::osfamily ? {
     'RedHat' => 'pdns-backend-postgresql',
@@ -10,6 +14,14 @@ class powerdns::backend::gpgsql (
 
   package { $backend_package_name:
     ensure => $::powerdns::install::package_ensure,
+  }
+
+  $options = {
+    'host'     => $host,
+    'user'     => $user,
+    'password' => $password,
+    'dbname'   => $dbname,
+    'port'     => $port,
   }
 
   file { "${::powerdns::config::config_path}/pdns.d/gpgsql.conf":
