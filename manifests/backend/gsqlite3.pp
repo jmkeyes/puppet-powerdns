@@ -1,7 +1,9 @@
 # == Class: powerdns::backend::gsqlite3
 
 class powerdns::backend::gsqlite3 (
-  $options = {},
+  $database,
+  $synchronous,
+  $foreign_keys,
 ) {
   $backend_package_name = $::osfamily ? {
     'Debian' => 'pdns-backend-sqlite3',
@@ -10,7 +12,13 @@ class powerdns::backend::gsqlite3 (
 
   package { $backend_package_name:
     ensure => $::powerdns::install::package_ensure,
-  } ->
+  }
+
+  $options = {
+    'database'            => $database,
+    'pragma-synchronous'  => $synchronous,
+    'pragma-foreign-keys' => $foreign_keys,
+  }
 
   file { "${::powerdns::config::config_path}/pdns.d/gsqlite3.conf":
     ensure  => present,

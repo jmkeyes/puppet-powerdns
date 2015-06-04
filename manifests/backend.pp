@@ -1,6 +1,8 @@
 # == Define: powerdns::backend
 
-define powerdns::backend {
+define powerdns::backend (
+  $options = {},
+) {
   validate_string($name)
 
   # Construct the backend class name.
@@ -17,6 +19,7 @@ define powerdns::backend {
   # Ensure the backend notifies PowerDNS when things change.
   Class[$backend] ~> Class['::powerdns::service']
 
-  # Evaluate the backend.
-  include $backend
+  # Evaluate the backend with any specified options.
+  $class = { "::powerdns::backend::${name}" => $options }
+  create_resources('class', $class)
 }
