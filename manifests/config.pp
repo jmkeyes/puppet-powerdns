@@ -36,18 +36,18 @@ class powerdns::config {
   } ->
 
   file { "${config_path}/pdns.d":
-    ensure  => directory,
-    owner   => $config_owner,
-    group   => $config_group,
-    mode    => '0755'
+    ensure => directory,
+    owner  => $config_owner,
+    group  => $config_group,
+    mode   => '0755'
   } ->
 
   concat { "${config_path}/pdns.conf":
-    ensure  => present,
-    path    => "${config_path}/pdns.conf",
-    owner   => $config_owner,
-    group   => $config_group,
-    mode    => $config_mode,
+    ensure => present,
+    path   => "${config_path}/pdns.conf",
+    owner  => $config_owner,
+    group  => $config_group,
+    mode   => $config_mode,
   }
 
   powerdns::setting { 'daemon':
