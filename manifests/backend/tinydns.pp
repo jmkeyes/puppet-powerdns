@@ -20,7 +20,7 @@ class powerdns::backend::tinydns (
   $tai_adjust = '11',
   $notify_on_startup = 'no',
   $ignore_bogus_records = 'no',
-  $locations = 'no',
+  $locations = 'yes',
 ) {
   $backend_package_name = 'pdns-backend-tinydns'
 
