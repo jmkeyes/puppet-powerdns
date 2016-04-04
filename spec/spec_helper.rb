@@ -21,4 +21,5 @@ SUPPORTED_BACKENDS = [
   'pipe',
   'gpgsql',
   'gsqlite3',
+  'tinydns',
 ]
