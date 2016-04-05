@@ -41,6 +41,7 @@ All parameters specific to a backend can be supplied using the `options` paramet
   - SQLite3 (`gsqlite3`)
   - LMDB (`lmdb`)
   - Pipe (`pipe`)
+  - TinyDNS ('tinydns')
 
 ### PowerDNS with MySQL (using manifests)
 
