@@ -21,6 +21,7 @@ class powerdns::backend::gpgsql (
   $password,
   $dbname,
   $port = 5432,
+  $dnssec = 'no'
 ) {
   $backend_package_name = $::osfamily ? {
     'RedHat' => 'pdns-backend-postgresql',
@@ -37,6 +38,7 @@ class powerdns::backend::gpgsql (
     'password' => $password,
     'dbname'   => $dbname,
     'port'     => $port,
+    'dnssec'   => $dnssec
   }
 
   file { "${::powerdns::config::config_path}/pdns.d/gpgsql.conf":

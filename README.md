@@ -55,6 +55,7 @@ All parameters specific to a backend can be supplied using the `options` paramet
       password => 'password',
       dbname   => 'powerdns',
       port     => '3306',
+      dnssec   => 'yes'
     }
 
 ### PowerDNS with PostgreSQL (using Hiera)
@@ -69,6 +70,7 @@ All parameters specific to a backend can be supplied using the `options` paramet
     powerdns::backend::gpgsql::password: 'password'
     powerdns::backend::gpgsql::dbname:   'powerdns'
     powerdns::backend::gpgsql::port:     5432
+    powerdns::backend::gpgsql::dnssec:   'no'
 
 ## Todo
 
