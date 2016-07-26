@@ -19,6 +19,7 @@ class powerdns::backend::gsqlite3 (
   $database,
   $synchronous,
   $foreign_keys,
+  $dnssec = 'no'
 ) {
   $backend_package_name = $::osfamily ? {
     'Debian' => 'pdns-backend-sqlite3',
@@ -33,6 +34,7 @@ class powerdns::backend::gsqlite3 (
     'database'            => $database,
     'pragma-synchronous'  => $synchronous,
     'pragma-foreign-keys' => $foreign_keys,
+    'dnssec'              => $dnssec
   }
 
   file { "${::powerdns::config::config_path}/pdns.d/gsqlite3.conf":

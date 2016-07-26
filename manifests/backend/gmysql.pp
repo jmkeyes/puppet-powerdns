@@ -21,6 +21,7 @@ class powerdns::backend::gmysql (
   $password,
   $dbname,
   $port = 3306,
+  $dnssec = 'no'
 ) {
   $backend_package_name = 'pdns-backend-mysql'
 
@@ -34,6 +35,7 @@ class powerdns::backend::gmysql (
     'password' => $password,
     'dbname'   => $dbname,
     'port'     => $port,
+    'dnssec'   => $dnssec
   }
 
   file { "${::powerdns::config::config_path}/pdns.d/gmysql.conf":
