@@ -6,6 +6,9 @@ group :rake, :test do
   gem 'rspec-core',             :require => false
   gem 'rspec-puppet',           :require => false
   gem 'puppetlabs_spec_helper', :require => false
+  #downgrading json gems to build against ruby 1.9.3
+  gem 'json_pure', '<2.0.2'
+  gem 'json', '<2.0.0'
 end
 
 group :rake, :development do
