@@ -27,6 +27,7 @@ class powerdns::backend::gpgsql (
   $default_package_name = $::osfamily ? {
     'RedHat' => 'pdns-backend-postgresql',
     'Debian' => 'pdns-backend-pgsql',
+    'ArchLinux' => 'none',
     default  => undef,
   }
 

@@ -23,7 +23,12 @@ class powerdns::backend::tinydns (
   $ignore_bogus_records = 'no',
   $locations = 'yes',
 ) {
-  $default_package_name = 'pdns-backend-tinydns'
+  $default_package_name = $::osfamily ? {
+    'Debian'    => 'pdns-backend-tinydns',
+    'RedHat'    => 'pdns-backend-tinydns',
+    'ArchLinux' => 'none',
+    default     => undef,
+  }
 
   $backend_package_name = pick($package_name, $default_package_name)
 

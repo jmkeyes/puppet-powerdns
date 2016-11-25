@@ -22,6 +22,12 @@ class powerdns::backend::pipe (
   $timeout = 2000
 ) {
   $default_package_name = 'pdns-backend-pipe'
+  $default_package_name = $::osfamily ? {
+    'Debian'    => 'pdns-backend-pipe',
+    'RedHat'    => 'pdns-backend-pipe',
+    'ArchLinux' => 'none',
+    default     => undef,
+  }
 
   $backend_package_name = pick($package_name, $default_package_name)
 

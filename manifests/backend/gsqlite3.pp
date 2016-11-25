@@ -25,6 +25,7 @@ class powerdns::backend::gsqlite3 (
   $default_package_name = $::osfamily ? {
     'Debian' => 'pdns-backend-sqlite3',
     'RedHat' => 'pdns-backend-sqlite',
+    'ArchLinux' => 'none',
     default  => undef,
   }
 

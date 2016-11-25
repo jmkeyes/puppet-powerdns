@@ -23,10 +23,14 @@ class powerdns::config {
   $default_config_path  = $::osfamily ? {
     'Debian' => '/etc/powerdns',
     'RedHat' => '/etc/pdns',
+    'ArchLinux' => '/etc/powerdns',
     default  => undef,
   }
 
-  $default_module_path = undef
+  $default_module_path = $::osfamily ? {
+    'ArchLinux' => '/usr/lib/powerdns',
+    default     => undef,
+  }
 
   if ($::powerdns::module_path) {
     $module_path = $::powerdns::module_path
