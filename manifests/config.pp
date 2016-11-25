@@ -26,6 +26,14 @@ class powerdns::config {
     default  => undef,
   }
 
+  $default_module_path = undef
+
+  if ($::powerdns::module_path) {
+    $module_path = $::powerdns::module_path
+  } else {
+    $module_path = $default_module_path
+  }
+
   $config_purge = pick($::powerdns::config_purge, true)
   $config_owner = pick($::powerdns::config_owner, 'root')
   $config_group = pick($::powerdns::config_group, 'root')
@@ -83,6 +91,12 @@ class powerdns::config {
 
   powerdns::setting { 'include-dir':
     value => "${config_path}/pdns.d",
+  }
+
+  if ($module_path) {
+    powerdns::setting { 'module-dir':
+      value => $module_path,
+    }
   }
 
   if $::powerdns::master {
