@@ -16,14 +16,19 @@
 #
 
 class powerdns::backend::pipe (
+  $package_name = undef,
   $regex,
   $command,
   $timeout = 2000
 ) {
-  $backend_package_name = 'pdns-backend-pipe'
+  $default_package_name = 'pdns-backend-pipe'
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+  $backend_package_name = pick($package_name, $default_package_name)
+
+  if ($backend_package_name != 'none') {
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {
