@@ -23,10 +23,12 @@ class powerdns::backend::gmysql (
   $port = 3306,
   $dnssec = 'no'
 ) {
-  $backend_package_name = 'pdns-backend-mysql'
+  if $::powerdns::install::manage_backend_packages {
+    $backend_package_name = 'pdns-backend-mysql'
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {

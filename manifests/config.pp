@@ -20,10 +20,11 @@ class powerdns::config {
     fail("Use of private class ${name} from ${caller_module_name}")
   }
 
-  $default_config_path  = $::osfamily ? {
-    'Debian' => '/etc/powerdns',
-    'RedHat' => '/etc/pdns',
-    default  => undef,
+  $default_config_path = $::osfamily ? {
+    'Debian'    => '/etc/powerdns',
+    'RedHat'    => '/etc/pdns',
+    'ArchLinux' => '/etc/powerdns',
+    default     => undef,
   }
 
   $default_module_path = $::osfamily ? {

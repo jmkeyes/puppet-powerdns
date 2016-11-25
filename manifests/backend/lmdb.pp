@@ -18,10 +18,12 @@
 class powerdns::backend::lmdb (
   $datapath,
 ) {
-  $backend_package_name = 'pdns-backend-lmdb'
+  if $::powerdns::install::manage_backend_packages {
+    $backend_package_name = 'pdns-backend-lmdb'
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {

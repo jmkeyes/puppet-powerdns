@@ -21,13 +21,15 @@ class powerdns::backend::gsqlite3 (
   $foreign_keys,
   $dnssec = 'no'
 ) {
-  $backend_package_name = $::osfamily ? {
-    'Debian' => 'pdns-backend-sqlite3',
-    'RedHat' => 'pdns-backend-sqlite'
-  }
+  if $::powerdns::install::manage_backend_packages {
+    $backend_package_name = $::osfamily ? {
+      'Debian' => 'pdns-backend-sqlite3',
+      'RedHat' => 'pdns-backend-sqlite'
+    }
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {

@@ -20,10 +20,12 @@ class powerdns::backend::pipe (
   $command,
   $timeout = 2000
 ) {
-  $backend_package_name = 'pdns-backend-pipe'
+  if $::powerdns::install::manage_backend_packages {
+    $backend_package_name = 'pdns-backend-pipe'
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {

@@ -23,13 +23,15 @@ class powerdns::backend::gpgsql (
   $port = 5432,
   $dnssec = 'no'
 ) {
-  $backend_package_name = $::osfamily ? {
-    'RedHat' => 'pdns-backend-postgresql',
-    'Debian' => 'pdns-backend-pgsql',
-  }
+  if $::powerdns::install::manage_backend_packages {
+    $backend_package_name = $::osfamily ? {
+      'RedHat' => 'pdns-backend-postgresql',
+      'Debian' => 'pdns-backend-pgsql',
+    }
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {
