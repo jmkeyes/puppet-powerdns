@@ -20,7 +20,6 @@ define powerdns::setting (
   $value  = undef,
 ) {
   concat::fragment { $name:
-    ensure  => $ensure,
     target  => "${::powerdns::config::config_path}/pdns.conf",
     content => "${name}=${value}\n",
   }
