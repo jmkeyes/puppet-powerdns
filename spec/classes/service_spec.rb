@@ -23,4 +23,5 @@ describe 'powerdns::service' do
 
   it_behaves_like 'a Linux distribution', 'RedHat'
   it_behaves_like 'a Linux distribution', 'Debian'
+  it_behaves_like 'a Linux distribution', 'ArchLinux'
 end

@@ -28,7 +28,7 @@ describe "powerdns::backend::gpgsql" do
         :owner  => 'root',
         :group  => 'root',
         :mode   => '0600',
-     })
+      })
     end
   end
 
@@ -51,7 +51,29 @@ describe "powerdns::backend::gpgsql" do
         :owner  => 'root',
         :group  => 'root',
         :mode   => '0600',
-     })
+      })
+    end
+  end
+
+  context "on ArchLinux" do
+    let (:pre_condition) { 'include ::powerdns' }
+
+    let (:facts) do
+      {
+        :osfamily => 'ArchLinux'
+      }
+    end
+
+    it { should compile.with_all_deps }
+    it { should create_class(class_name) }
+
+    it do
+      should create_file('/etc/powerdns/pdns.d/gpgsql.conf').with({
+        :ensure => 'present',
+        :owner  => 'root',
+        :group  => 'root',
+        :mode   => '0600',
+      })
     end
   end
 end

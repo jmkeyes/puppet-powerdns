@@ -24,4 +24,5 @@ describe 'powerdns::install' do
 
   it_behaves_like 'a Linux distribution', 'RedHat', 'pdns'
   it_behaves_like 'a Linux distribution', 'Debian', 'pdns-server'
+  it_behaves_like 'a Linux distribution', 'ArchLinux', 'powerdns'
 end

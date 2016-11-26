@@ -96,4 +96,5 @@ describe 'powerdns::config' do
 
   it_behaves_like "a Linux distribution", 'RedHat', '/etc/pdns', '/usr/lib64/pdns'
   it_behaves_like "a Linux distribution", 'Debian', '/etc/powerdns', '/usr/lib/x86_64-linux-gnu/pdns'
+  it_behaves_like "a Linux distribution", 'ArchLinux', '/etc/powerdns', '/usr/lib/powerdns'
 end
