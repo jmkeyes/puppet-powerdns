@@ -25,9 +25,14 @@ class powerdns::install {
   }
 
   $default_package_name   = $::osfamily ? {
-    'Debian' => 'pdns-server',
-    'RedHat' => 'pdns',
-    default  => undef,
+    'Debian'    => 'pdns-server',
+    'RedHat'    => 'pdns',
+    'ArchLinux' => 'powerdns',
+  }
+
+  $manage_backend_packages = $::osfamily ? {
+    'ArchLinux' => false,
+    default     => true,
   }
 
   $package_name   = pick($::powerdns::package_name, $default_package_name)

@@ -22,10 +22,12 @@ class powerdns::backend::tinydns (
   $ignore_bogus_records = 'no',
   $locations = 'yes',
 ) {
-  $backend_package_name = 'pdns-backend-tinydns'
+  if $::powerdns::install::manage_backend_packages {
+    $backend_package_name = 'pdns-backend-tinydns'
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {

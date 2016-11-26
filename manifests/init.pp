@@ -31,6 +31,7 @@ class powerdns (
   $config_mode     = undef,
   $config_path     = undef,
   $config_purge    = undef,
+  $module_path     = undef,
 ) {
   # Fail fast if we're not using a new Puppet version.
   if versioncmp($::puppetversion, '3.7.0') < 0 {

@@ -1,5 +1,5 @@
 describe 'powerdns::config' do
-  shared_examples 'a Linux distribution' do |osfamily, config_directory|
+  shared_examples 'a Linux distribution' do |osfamily, config_directory, module_directory|
     context "on #{osfamily}" do
       let (:facts) do
         {
@@ -27,6 +27,7 @@ describe 'powerdns::config' do
         it { should create_class('powerdns::config') }
 
         it { should contain_file(config_directory).with(default_params) }
+        it { should contain_file(module_directory).with(default_params) }
         it { should contain_file(include_directory).with(default_params) }
 
         it do
@@ -47,6 +48,9 @@ describe 'powerdns::config' do
 
         it { should contain_powerdns__setting('config-dir').with_value(config_directory) }
         it { should contain_concat__fragment('config-dir').with_content("config-dir=#{config_directory}\n") }
+
+        it { should contain_powerdns__setting('module-dir').with_value(module_directory) }
+        it { should contain_concat__fragment('module-dir').with_content("module-dir=#{module_directory}\n") }
 
         it { should contain_powerdns__setting('include-dir').with_value(include_directory) }
         it { should contain_concat__fragment('include-dir').with_content("include-dir=#{include_directory}\n") }
@@ -90,6 +94,7 @@ describe 'powerdns::config' do
     end
   end
 
-  it_behaves_like "a Linux distribution", 'RedHat', '/etc/pdns'
-  it_behaves_like "a Linux distribution", 'Debian', '/etc/powerdns'
+  it_behaves_like "a Linux distribution", 'RedHat', '/etc/pdns', '/usr/lib64/pdns'
+  it_behaves_like "a Linux distribution", 'Debian', '/etc/powerdns', '/usr/lib/x86_64-linux-gnu/pdns'
+  it_behaves_like "a Linux distribution", 'ArchLinux', '/etc/powerdns', '/usr/lib/powerdns'
 end

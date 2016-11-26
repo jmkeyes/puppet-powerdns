@@ -20,11 +20,20 @@ class powerdns::config {
     fail("Use of private class ${name} from ${caller_module_name}")
   }
 
-  $default_config_path  = $::osfamily ? {
-    'Debian' => '/etc/powerdns',
-    'RedHat' => '/etc/pdns',
-    default  => undef,
+  $default_config_path = $::osfamily ? {
+    'Debian'    => '/etc/powerdns',
+    'RedHat'    => '/etc/pdns',
+    'ArchLinux' => '/etc/powerdns',
+    default     => undef,
   }
+
+  $default_module_path = $::osfamily ? {
+    'Debian'    => '/usr/lib/x86_64-linux-gnu/pdns',
+    'RedHat'    => '/usr/lib64/pdns',
+    'ArchLinux' => '/usr/lib/powerdns',
+  }
+
+  $module_path = pick($::powerdns::module_path, $default_module_path)
 
   $config_purge = pick($::powerdns::config_purge, true)
   $config_owner = pick($::powerdns::config_owner, 'root')
@@ -39,6 +48,8 @@ class powerdns::config {
   validate_string($config_mode)
 
   validate_absolute_path($config_path)
+
+  validate_absolute_path($module_path)
 
   file { $config_path:
     ensure  => directory,
@@ -65,6 +76,13 @@ class powerdns::config {
     mode   => $config_mode,
   }
 
+  file { $module_path:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
   powerdns::setting { 'daemon':
     value => 'yes',
   }
@@ -83,6 +101,12 @@ class powerdns::config {
 
   powerdns::setting { 'include-dir':
     value => "${config_path}/pdns.d",
+  }
+
+  if $module_path {
+    powerdns::setting { 'module-dir':
+      value => $module_path,
+    }
   }
 
   if $::powerdns::master {

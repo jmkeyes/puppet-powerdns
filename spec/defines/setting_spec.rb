@@ -31,4 +31,5 @@ describe 'powerdns::setting' do
 
   it_behaves_like 'a Linux distribution', 'RedHat', '/etc/pdns/pdns.conf'
   it_behaves_like 'a Linux distribution', 'Debian', '/etc/powerdns/pdns.conf'
+  it_behaves_like 'a Linux distribution', 'ArchLinux', '/etc/powerdns/pdns.conf'
 end
