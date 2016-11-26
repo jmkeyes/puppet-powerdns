@@ -23,7 +23,19 @@ class powerdns::config {
   $default_config_path  = $::osfamily ? {
     'Debian' => '/etc/powerdns',
     'RedHat' => '/etc/pdns',
+    'ArchLinux' => '/etc/powerdns',
     default  => undef,
+  }
+
+  $default_module_path = $::osfamily ? {
+    'ArchLinux' => '/usr/lib/powerdns',
+    default     => undef,
+  }
+
+  if ($::powerdns::module_path) {
+    $module_path = $::powerdns::module_path
+  } else {
+    $module_path = $default_module_path
   }
 
   $config_purge = pick($::powerdns::config_purge, true)
@@ -83,6 +95,12 @@ class powerdns::config {
 
   powerdns::setting { 'include-dir':
     value => "${config_path}/pdns.d",
+  }
+
+  if ($module_path) {
+    powerdns::setting { 'module-dir':
+      value => $module_path,
+    }
   }
 
   if $::powerdns::master {

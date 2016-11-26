@@ -16,6 +16,7 @@
 #
 
 class powerdns::backend::gmysql (
+  $package_name = undef,
   $host,
   $user,
   $password,
@@ -23,10 +24,19 @@ class powerdns::backend::gmysql (
   $port = 3306,
   $dnssec = 'no'
 ) {
-  $backend_package_name = 'pdns-backend-mysql'
+  $default_package_name = $::osfamily ? {
+    'Debian'    => 'pdns-backend-mysql',
+    'RedHat'    => 'pdns-backend-mysql',
+    'ArchLinux' => 'none',
+    default     => undef,
+  }
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+  $backend_package_name = pick($package_name, $default_package_name)
+
+  if ($backend_package_name != 'none') {
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {

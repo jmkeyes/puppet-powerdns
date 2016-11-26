@@ -16,12 +16,23 @@
 #
 
 class powerdns::backend::lmdb (
+  $package_name = undef,
   $datapath,
 ) {
-  $backend_package_name = 'pdns-backend-lmdb'
+  $default_package_name = 'pdns-backend-lmdb'
+  $default_package_name = $::osfamily ? {
+    'Debian'    => 'pdns-backend-lmdb',
+    'RedHat'    => 'pdns-backend-lmdb',
+    'ArchLinux' => 'none',
+    default     => undef,
+  }
 
-  package { $backend_package_name:
-    ensure => $::powerdns::install::package_ensure,
+  $backend_package_name = pick($package_name, $default_package_name)
+
+  if ($backend_package_name != 'none') {
+    package { $backend_package_name:
+      ensure => $::powerdns::install::package_ensure,
+    }
   }
 
   $options = {
