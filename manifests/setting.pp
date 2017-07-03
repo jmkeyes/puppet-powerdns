@@ -17,10 +17,12 @@
 
 define powerdns::setting (
   $ensure = 'present',
+  $parameter = $name,
   $value  = undef,
 ) {
   concat::fragment { $name:
     target  => "${::powerdns::config::config_path}/pdns.conf",
-    content => "${name}=${value}\n",
+    content => "${parameter}=${value}\n",
+    order   => $parameter,
   }
 }
